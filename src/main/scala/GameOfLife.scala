@@ -18,12 +18,4 @@ class GameOfLife(neighborhoodOffsets: Set[Location], rules: Map[Boolean, Int => 
       neighborhoodOffsets map { _ + location }
     }
   }
-
-  def nextGenerationExplicit(livingCells: Set[Location]): Set[Location] = {
-    val aliveNeighborsPerCell: Map[Location, Int] = locationsWithAliveNeighbors(livingCells)
-      .groupBy(identity).mapValues { livingNeighbors: List[Location] => livingNeighbors.size }
-    aliveNeighborsPerCell.collect {
-      case (cell: Location, aliveNeighbors: Int) if willBeAlive(livingCells.contains(cell), aliveNeighbors) => cell
-    }.to[Set]
-  }
 }
